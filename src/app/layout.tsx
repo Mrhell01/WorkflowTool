@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import '@xyflow/react/dist/style.css';
 
+import WorkFLowSideBar from "./WorkFLowSideBar";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -29,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <WorkFLowSideBar>
         {children}
+        </WorkFLowSideBar>
       </body>
     </html>
   );
