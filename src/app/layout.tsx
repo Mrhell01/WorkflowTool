@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import '@xyflow/react/dist/style.css';
-import Navbar from "./navbar";
+import Navbar from "./Components/navbar";
 
-import WorkFLowSideBar from "./WorkFLowSideBar";
+import WorkFLowSideBar from "./Components/WorkFLowSideBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
