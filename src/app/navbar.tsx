@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: 'rgba(217, 217, 217, 0.35)' }}>
     <div style={{ color: 'white' }}>
-      <h2>Logo</h2>
+    <Link href="/" style={{ color: 'white' }}>Logo</Link>
     </div>
 
     <div style={{ display: 'flex', gap: '1rem' }}>
