@@ -14,23 +14,24 @@ function WorkFLow() {
 
     if (dataType === "Audio") {
       Tasks = [
-        { type: "input", label: "task 1" },
+        { type: "default", label: "task 1" },
         { type: "default", label: "task 2" },
-        { type: "output", label: "task 3" },
+        { type: "default", label: "task 3" },
         { type: "output", label: "end" },
       ];
     } else if (dataType === "Video") {
       Tasks = [
-        { type: "input", label: "task 1" },
+        { type: "default", label: "task 1" },
         { type: "default", label: "task 2" },
-        { type: "output", label: "task 3" },
+        { type: "default", label: "task 3" },
         { type: "default", label: "task 4" },
         { type: "output", label: "end" },
       ];
     } else {
       Tasks = [
-        { type: "input", label: "task 1" },
-        { type: "default", label: "task 2" },
+        { type: "default", label: "resolutions" },
+        { type: "default", label: "filtering" },
+        { type: "default", label: "masking" },
         { type: "output", label: "end" },
       ];
     }
@@ -40,7 +41,7 @@ function WorkFLow() {
 
   const initialTasks: Node[] = [
     {
-      id: "1",
+      id: "start",
       type: "input",
       data: { label: "start" },
       position: { x: 250, y: 5 },

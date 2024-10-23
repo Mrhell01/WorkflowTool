@@ -32,7 +32,7 @@ export default function WorkFLowSideBar({
     setDataType(event.target.value);
     setNodes([
       {
-        id: "1",
+        id: "start",
         type: "input",
         data: { label: "start" },
         position: { x: 250, y: 5 },
@@ -56,7 +56,7 @@ export default function WorkFLowSideBar({
             <h2 className="mb-4 text-lg font-semibold">Available Tasks</h2>
             {taskTypes.map((task) => (
               <div
-                key={task.type}
+                key={task.label}
                 className="mb-2 cursor-move rounded bg-white p-2 shadow"
                 onDragStart={(event) =>
                   onDragStart(event, task.type, task.label)
