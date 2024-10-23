@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import '@xyflow/react/dist/style.css';
+import "@xyflow/react/dist/style.css";
 import Navbar from "./Components/navbar";
 
 import WorkFLowSideBar from "./Components/WorkFLowSideBar";
@@ -32,10 +32,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <Navbar/>
-        <WorkFLowSideBar>
+        <Navbar />
         {children}
-        </WorkFLowSideBar>
       </body>
     </html>
   );
