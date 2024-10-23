@@ -5,6 +5,7 @@ import "@xyflow/react/dist/style.css";
 import Navbar from "./Components/navbar";
 
 import WorkFLowSideBar from "./Components/WorkFLowSideBar";
+import StoreProvider from "./StoreProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,8 +33,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
+        <StoreProvider>
+          <Navbar />
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );

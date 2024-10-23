@@ -2,27 +2,27 @@
 
 import { Node } from "reactflow";
 
-export type node = {
+export type task = {
   type: string;
   label: string;
 };
 type workflowProps = {
-  nodeTypes: node[];
+  taskTypes: task[];
   setDataType: (dataType: string) => void;
-  setNodes: (nodes: Node[]) => void;
+  setNodes: (tasks: Node[]) => void;
 };
 export default function WorkFLowSideBar({
-  nodeTypes,
+  taskTypes,
   setDataType,
   setNodes,
 }: workflowProps) {
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
-    nodeType: string,
-    nodeLabel: string
+    taskType: string,
+    taskLabel: string
   ) => {
-    event.dataTransfer.setData("application/reactflow", nodeType);
-    event.dataTransfer.setData("label", nodeLabel);
+    event.dataTransfer.setData("application/reactflow", taskType);
+    event.dataTransfer.setData("label", taskLabel);
     event.dataTransfer.effectAllowed = "move";
   };
 
@@ -53,17 +53,17 @@ export default function WorkFLowSideBar({
               <option value="Audio">AUDIO</option>
               <option value="Video">VIDEO</option>
             </select>
-            <h2 className="mb-4 text-lg font-semibold">Available Nodes</h2>
-            {nodeTypes.map((node) => (
+            <h2 className="mb-4 text-lg font-semibold">Available Tasks</h2>
+            {taskTypes.map((task) => (
               <div
-                key={node.type}
+                key={task.type}
                 className="mb-2 cursor-move rounded bg-white p-2 shadow"
                 onDragStart={(event) =>
-                  onDragStart(event, node.type, node.label)
+                  onDragStart(event, task.type, task.label)
                 }
                 draggable
               >
-                {node.label}
+                {task.label}
               </div>
             ))}
           </div>

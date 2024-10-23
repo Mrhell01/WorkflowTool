@@ -14,17 +14,17 @@ import ReactFlow, {
 import WorkFLowSideBar from "./WorkFLowSideBar";
 import { BackgroundVariant } from "@xyflow/react";
 
-type node = {
+type task = {
     type: string;
     label: string;
   };
   type canvasProps = {
-    nodeTypes: node[];
+    taskTypes: task[];
     initialNodes:Node[];
     setDataType: (dataType:string)=>void;
   };
 
-export default function Canvas({nodeTypes,initialNodes,setDataType}:canvasProps) {
+export default function Canvas({taskTypes,initialNodes,setDataType}:canvasProps) {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -45,9 +45,9 @@ export default function Canvas({nodeTypes,initialNodes,setDataType}:canvasProps)
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
       const label = event.dataTransfer.getData("label");
-      const nodeType = nodeTypes.find((node) => node.type === type);
+      const taskType = taskTypes.find((task) => task.type === type);
 
-      if (!nodeType) {
+      if (!taskType) {
         return;
     }; 
 
@@ -56,14 +56,14 @@ export default function Canvas({nodeTypes,initialNodes,setDataType}:canvasProps)
         y: event.clientY - reactFlowBounds.top,
       });
 
-      const newNode: Node = {
+      const newTask: Node = {
         id: getId(),
-        type: nodeType.type,
+        type: taskType.type,
         position,
         data: { label: label }, 
       };
 
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds) => nds.concat(newTask));
     },
     [reactFlowInstance, setNodes]
   );
@@ -77,7 +77,7 @@ console.log(edges)
 }
   return (
     <div className="flex h-screen">
-      <WorkFLowSideBar nodeTypes={nodeTypes} setDataType={setDataType} setNodes={setNodes}/>
+      <WorkFLowSideBar taskTypes={taskTypes} setDataType={setDataType} setNodes={setNodes}/>
       <ReactFlowProvider>
         <div
           className="w-full h-[calc(100vh-4rem)] overflow-hidden relative"
