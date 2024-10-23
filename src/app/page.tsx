@@ -1,17 +1,54 @@
-import Image from "next/image";
-import React, { useCallback } from 'react';
-import { addEdge, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
+"use client";
+import { Node } from "reactflow";
+import Canvas from "./Components/Canvas";
+import { useState, useEffect } from "react";
+import { node } from "./Components/WorkFLowSideBar";
 
-const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-];
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 export default function Home() {
+  const [dataType, setDataType] = useState("Image");
+  const [availableNodes, setAvailableNodes] = useState<node[]>([]);
+
+  useEffect(() => {
+    let nodeTypes: node[] = [];
+
+    if (dataType === "Audio") {
+      nodeTypes = [
+        { type: "input", label: "task 1" },
+        { type: "default", label: "task 2" },
+        { type: "output", label: "task 3" },
+        { type: "output", label: "end" },
+      ];
+    } else if (dataType === "Video") {
+      nodeTypes = [
+        { type: "input", label: "task 1" },
+        { type: "default", label: "task 2" },
+        { type: "output", label: "task 3" },
+        { type: "default", label: "task 4" },
+        { type: "output", label: "end" },
+      ];
+    } else {
+      nodeTypes = [
+        { type: "input", label: "task 1" },
+        { type: "default", label: "task 2" },
+        { type: "output", label: "end" },
+      ];
+    }
+
+    setAvailableNodes(nodeTypes);
+  }, [dataType]); 
+
+  const initialNodes: Node[] = [
+    {
+      id: "1",
+      type: "input",
+      data: { label: "start" },
+      position: { x: 250, y: 5 },
+    },
+  ];
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <ReactFlow nodes={initialNodes} edges={initialEdges} />
+    <div>
+      <Canvas nodeTypes={availableNodes} initialNodes={initialNodes} setDataType={setDataType}/>
     </div>
   );
 }

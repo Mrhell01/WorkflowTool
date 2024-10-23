@@ -5,7 +5,7 @@ import React from 'react';
 
 const Navbar: React.FC = () => {
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: 'rgba(217, 217, 217, 0.35)' }}>
+    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: 'black' }}>
     <div style={{ color: 'white' }}>
     <Link href="/" style={{ color: 'white' }}>Logo</Link>
     </div>
