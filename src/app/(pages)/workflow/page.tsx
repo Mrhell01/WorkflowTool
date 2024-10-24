@@ -1,8 +1,8 @@
 'use client'
 import { Node } from "reactflow";
-import Canvas from "../Components/Canvas";
+import Canvas from "../../components/Canvas";
 import { useState, useEffect } from "react";
-import { task } from "../Components/WorkFLowSideBar";
+import { task } from "../../components/WorkFlowSideBar";
 
 
 function WorkFLow() {

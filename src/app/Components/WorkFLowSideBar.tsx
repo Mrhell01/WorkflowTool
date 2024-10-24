@@ -7,8 +7,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
+} from "@/app/components/ui/select";
+import { Card, CardContent } from "@/app/components/ui/card";
 
 export type task = {
   type: string;

@@ -12,9 +12,8 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
 } from "reactflow";
-import WorkFLowSideBar from "./WorkFLowSideBar";
+import WorkFLowSideBar from "./WorkFlowSideBar";
 import { BackgroundVariant } from "@xyflow/react";
-import CustomNode from "./customNode";
 
 type task = {
   type: string;
