@@ -121,33 +121,39 @@ export default function Canvas({
         setDataType={setDataType}
         setNodes={setNodes}
       />
-      <ReactFlowProvider>
-        <div
-          className="w-full h-[calc(100vh-4rem)] overflow-hidden relative"
-          ref={reactFlowWrapper}
-        >
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onInit={setReactFlowInstance}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            fitView
-          >
-            <Background color="black" variant={BackgroundVariant.Dots} />
-            <button
-              onClick={onSubmit}
-              className="absolute right-14 bottom-14 bg-black rounded-md text-white px-3 py-2 font-semibold hover:bg-slate-300 z-10 hover:text-black"
-            >
-              Submit
-            </button>
-            <Controls />
-          </ReactFlow>
+      <div className="flex-grow px-4 py-2 justify-center items-center">
+        <div className="w-full h-[740px] relative bg-gray-200 rounded-lg">
+          <ReactFlowProvider>
+            <div ref={reactFlowWrapper} className="w-full h-full">
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                onInit={setReactFlowInstance}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+                fitView
+              >
+                <Background
+                  color="black"
+                  variant={BackgroundVariant.Dots}
+                  size={1}
+                  gap={15}
+                />
+                <button
+                  onClick={onSubmit}
+                  className="absolute right-14 bottom-14 bg-blue-500 border-blue-400 border-2 rounded-md text-white px-3 py-2 font-semibold hover:bg-blue-200 z-10 hover:text-black"
+                >
+                  Submit
+                </button>
+                <Controls />
+              </ReactFlow>
+            </div>
+          </ReactFlowProvider>
         </div>
-      </ReactFlowProvider>
+      </div>
     </div>
   );
 }
