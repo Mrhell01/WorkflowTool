@@ -1,6 +1,14 @@
 "use client";
 
 import { Node } from "reactflow";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
 
 export type task = {
   type: string;
@@ -26,10 +34,8 @@ export default function WorkFLowSideBar({
     event.dataTransfer.effectAllowed = "move";
   };
 
-  const handleDataTypeChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setDataType(event.target.value);
+  const handleDataTypeChange = (value: string) => {
+    setDataType(value);
     setNodes([
       {
         id: "start",
@@ -40,38 +46,52 @@ export default function WorkFLowSideBar({
     ]);
   };
   return (
-    <div className="flex h-full">
-      {true && (
-        <aside className="w-64 bg-[#D9D9D9] text-black hidden md:block sticky top-14 h-[calc(100vh-2rem)]">
-          <div className="w-64 p-4">
-            <h2 className="mb-4 text-lg font-semibold">SELECT DATA TYPE</h2>
-            <select
-              className="mb-2 cursor-move rounded bg-white p-2 shadow"
-              onChange={handleDataTypeChange}
-            >
-              <option value="Image">IMAGE</option>
-              <option value="Audio">AUDIO</option>
-              <option value="Video">VIDEO</option>
-            </select>
-            <h2 className="mb-4 text-lg font-semibold">Available Tasks</h2>
-            {taskTypes.map((task) => (
-              <div
-                key={task.label}
-                className="mb-2 cursor-move rounded bg-white p-2 shadow"
-                onDragStart={(event) =>
-                  onDragStart(event, task.type, task.label)
-                }
-                draggable
-              >
-                {task.label}
-              </div>
-            ))}
-          </div>
-        </aside>
-      )}
-      {/* <main className="flex-1 md:px-8 md:py-4 bg-gray-100 overflow-auto h-[calc(100vh-4rem)]">
-        {children}
-      </main> */}
-    </div>
+    <aside className="w-64 bg-white text-blue-900 hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] p-4 border-r border-blue-200 shadow-md">
+      <h2 className="mb-4 text-lg font-semibold text-blue-700">
+        Select Data Type
+      </h2>
+      <Select onValueChange={handleDataTypeChange}>
+        <SelectTrigger className="w-full mb-4 border-blue-300 focus:ring-blue-500">
+          <SelectValue placeholder="Select data type" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem
+            value="Image"
+            className=" text-blue-700 hover:bg-blue-100"
+          >
+            Image
+          </SelectItem>
+          <SelectItem
+            value="Audio"
+            className=" text-blue-700 hover:bg-blue-100"
+          >
+            Audio
+          </SelectItem>
+          <SelectItem
+            value="Video"
+            className=" text-blue-700 hover:bg-blue-100"
+          >
+            Video
+          </SelectItem>
+        </SelectContent>
+      </Select>
+      <h2 className="mb-4 text-lg font-semibold text-blue-700">
+        Available Tasks
+      </h2>
+      <div className="space-y-2">
+        {taskTypes.map((task) => (
+          <Card
+            key={task.label}
+            draggable
+            onDragStart={(event) => onDragStart(event, task.type, task.label)}
+            className="cursor-move bg-blue-50 border-blue-200 hover:bg-blue-100 transition-colors"
+          >
+            <CardContent className="p-2 text-sm text-blue-700">
+              {task.label}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </aside>
   );
 }
