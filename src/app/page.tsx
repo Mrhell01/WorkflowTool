@@ -1,17 +1,23 @@
-import Image from "next/image";
-import React, { useCallback } from 'react';
-import { addEdge, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
 
-const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-];
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 export default function Home() {
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <ReactFlow nodes={initialNodes} edges={initialEdges} />
+    <div>
+       <div className="min-h-screen bg-gray-50 ">
+  
+
+
+      <section className="bg-blue-500 text-white py-60 ">
+        <div className="container mx-auto text-center">
+          <h2 className="text-5xl font-bold">Welcome to AM TOOL</h2>
+          <p className="text-xl mt-4">Your trusted partner in innovative tooling solutions</p>
+          <a href="#" className="mt-8 inline-block bg-white text-blue-500 px-6 py-3 font-semibold rounded-md hover:bg-blue-100">Learn More</a>
+        </div>
+      </section>
+
+      
+
+      </div>
     </div>
   );
 }
