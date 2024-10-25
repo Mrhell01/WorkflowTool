@@ -19,7 +19,7 @@ type workflowProps = {
   setDataType: (dataType: string) => void;
   setNodes: (tasks: Node[]) => void;
 };
-export default function WorkFLowSideBar({
+export default function WorkFlowSideBar({
   taskTypes,
   setDataType,
   setNodes,

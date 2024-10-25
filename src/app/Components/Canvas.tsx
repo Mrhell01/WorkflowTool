@@ -12,7 +12,7 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
 } from "reactflow";
-import WorkFLowSideBar from "./WorkFlowSideBar";
+import WorkFlowSideBar from "./WorkFlowSideBar";
 import { BackgroundVariant } from "@xyflow/react";
 
 type task = {
@@ -115,7 +115,7 @@ export default function Canvas({
 
   return (
     <div className="flex h-screen">
-      <WorkFLowSideBar
+      <WorkFlowSideBar
         taskTypes={taskTypes}
         setDataType={setDataType}
         setNodes={setNodes}
