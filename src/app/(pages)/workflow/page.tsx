@@ -39,18 +39,10 @@ function WorkFLow() {
     setAvailableTasks(Tasks);
   }, [dataType]); 
 
-  const initialTasks: Node[] = [
-    {
-      id: "start",
-      type: "input",
-      data: { label: "start" },
-      position: { x: 250, y: 5 },
-    },
-  ];
 
   return (
     <div>
-       <Canvas taskTypes={availableTasks} initialNodes={initialTasks} setDataType={setDataType}/>
+       <Canvas taskTypes={availableTasks}  setDataType={setDataType}/>
     </div>
   )
 }

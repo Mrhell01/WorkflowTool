@@ -1,6 +1,5 @@
 "use client";
 
-import { Node } from "reactflow";
 import {
   Select,
   SelectContent,
@@ -9,6 +8,8 @@ import {
   SelectValue,
 } from "@/app/components/ui/select";
 import { Card, CardContent } from "@/app/components/ui/card";
+import { useAppDispatch } from "../lib/store/hooks";
+import { resetNodes } from "../lib/store/features/flow/flow";
 
 export type task = {
   type: string;
@@ -17,13 +18,12 @@ export type task = {
 type workflowProps = {
   taskTypes: task[];
   setDataType: (dataType: string) => void;
-  setNodes: (tasks: Node[]) => void;
 };
 export default function WorkFlowSideBar({
   taskTypes,
   setDataType,
-  setNodes,
 }: workflowProps) {
+  const dispatch = useAppDispatch();
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     taskType: string,
@@ -36,14 +36,7 @@ export default function WorkFlowSideBar({
 
   const handleDataTypeChange = (value: string) => {
     setDataType(value);
-    setNodes([
-      {
-        id: "start",
-        type: "input",
-        data: { label: "start" },
-        position: { x: 250, y: 5 },
-      },
-    ]);
+    dispatch(resetNodes());
   };
   return (
     <aside className="w-64 bg-white text-blue-900 hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] p-4 border-r border-blue-200 shadow-md">

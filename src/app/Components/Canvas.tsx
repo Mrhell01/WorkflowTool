@@ -1,38 +1,35 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
 import ReactFlow, {
-  addEdge,
   Background,
   Connection,
   Controls,
   Edge,
+  EdgeChange,
   MarkerType,
   Node,
+  NodeChange,
   ReactFlowProvider,
-  useEdgesState,
-  useNodesState,
 } from "reactflow";
 import WorkFlowSideBar from "./WorkFlowSideBar";
 import { BackgroundVariant } from "@xyflow/react";
+import { useAppDispatch, useAppSelector } from "../lib/store/hooks";
+import { addingEdge, addingNode, onNodesChange, onEdgesChange } from "../lib/store/features/flow/flow";
 
-type task = {
+type Task = {
   type: string;
   label: string;
 };
-type canvasProps = {
-  taskTypes: task[];
-  initialNodes: Node[];
+type CanvasProps = {
+  taskTypes: Task[];
   setDataType: (dataType: string) => void;
 };
 
-export default function Canvas({
-  taskTypes,
-  initialNodes,
-  setDataType,
-}: canvasProps) {
+export default function Canvas({ taskTypes, setDataType }: CanvasProps) {
+  const nodes = useAppSelector((state) => state.flow.nodes);
+  const edges = useAppSelector((state) => state.flow.edges);
+  const dispatch = useAppDispatch();
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   let id = 1;
   const getId = () => `task_${id++}`;
@@ -47,10 +44,25 @@ export default function Canvas({
           height: 20,
           color: "black",
         },
+        
       };
-      setEdges((eds) => addEdge(edgeWithArrow, eds));
+      dispatch(addingEdge(edgeWithArrow));
     },
-    [setEdges]
+    [dispatch]
+  );
+
+  const handleNodesChange = useCallback(
+    (changes: NodeChange[]) => {
+      dispatch(onNodesChange(changes));
+    },
+    [dispatch]
+  );
+
+  const handleEdgesChange = useCallback(
+    (changes: EdgeChange[]) => {
+      dispatch(onEdgesChange(changes));
+    },
+    [dispatch]
   );
 
   const onDrop = useCallback(
@@ -80,9 +92,9 @@ export default function Canvas({
         data: { label: label },
       };
 
-      setNodes((nds) => nds.concat(newTask));
+      dispatch(addingNode(newTask));
     },
-    [reactFlowInstance, setNodes]
+    [reactFlowInstance, dispatch, taskTypes]
   );
 
   const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
@@ -91,10 +103,9 @@ export default function Canvas({
   }, []);
 
   const onSubmit = () => {
-
-    const tasks = nodes.map((node:Node, index) => ({
+    const tasks = nodes.map((node: Node, index) => ({
       taskId: node.id,
-      label:node.data.label,
+      label: node.data.label,
       taskType: node.type,
       sequence: index + 1,
     }));
@@ -115,11 +126,7 @@ export default function Canvas({
 
   return (
     <div className="flex h-screen">
-      <WorkFlowSideBar
-        taskTypes={taskTypes}
-        setDataType={setDataType}
-        setNodes={setNodes}
-      />
+      <WorkFlowSideBar taskTypes={taskTypes} setDataType={setDataType} />
       <div className="flex-grow px-4 py-2 justify-center items-center">
         <div className="w-full h-[740px] relative bg-gray-200 rounded-lg">
           <ReactFlowProvider>
@@ -127,8 +134,8 @@ export default function Canvas({
               <ReactFlow
                 nodes={nodes}
                 edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
+                onNodesChange={handleNodesChange}
+                onEdgesChange={handleEdgesChange}
                 onConnect={onConnect}
                 onInit={setReactFlowInstance}
                 onDrop={onDrop}
